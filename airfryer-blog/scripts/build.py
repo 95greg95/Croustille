@@ -210,7 +210,6 @@ def page_shell(title: str, description: str, canonical: str, content: str,
       <a href="/a-propos/">À propos</a>
       <a href="/mentions-legales/">Mentions légales</a>
       <a href="/confidentialite/">Politique de confidentialité</a>
-      <a href="/rss.xml">Flux RSS</a>
     </nav>
     <p class="footer-copy">© {year} {esc(CONFIG['site_name'])} — {esc(CONFIG['site_tagline'])}</p>
   </div>
