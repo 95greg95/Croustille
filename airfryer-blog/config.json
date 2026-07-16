@@ -10,6 +10,6 @@
   "adsense_enabled": false,
   "adsense_client": "ca-pub-XXXXXXXXXXXXXXXX",
   "articles_per_day": 1,
-  "target_word_count": 2500,
+  "target_word_count": 1500,
   "anthropic_model": "claude-sonnet-4-6"
 }
