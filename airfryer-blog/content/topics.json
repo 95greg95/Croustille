@@ -1,49 +1,275 @@
 {
   "topics": [
-    {"type": "guide", "title": "Air fryer XXL : le guide complet pour les familles nombreuses", "keyword": "air fryer xxl famille", "done": false},
-    {"type": "comparatif", "title": "Ninja vs Philips : quel air fryer choisir en 2026 ?", "keyword": "ninja vs philips air fryer", "done": false},
-    {"type": "article", "title": "Frites croustillantes à l'air fryer : la méthode parfaite étape par étape", "keyword": "frites air fryer croustillantes", "done": false},
-    {"type": "guide", "title": "Air fryer double tiroir : pourquoi et comment bien le choisir", "keyword": "air fryer double tiroir", "done": false},
-    {"type": "comparatif", "title": "Meilleurs air fryers pas chers : le comparatif des modèles à moins de 100 €", "keyword": "air fryer pas cher", "done": false},
-    {"type": "article", "title": "Poulet rôti entier à l'air fryer : temps de cuisson et astuces de chef", "keyword": "poulet air fryer", "done": false},
-    {"type": "guide", "title": "Comment nettoyer son air fryer : le guide d'entretien complet", "keyword": "nettoyer air fryer", "done": false},
-    {"type": "comparatif", "title": "Air fryer ou four traditionnel : le match complet (consommation, goût, praticité)", "keyword": "air fryer ou four", "done": false},
-    {"type": "article", "title": "Légumes rôtis à l'air fryer : 12 recettes et temps de cuisson précis", "keyword": "légumes air fryer", "done": false},
-    {"type": "guide", "title": "Air fryer pour étudiant : bien s'équiper avec un petit budget et un petit espace", "keyword": "air fryer étudiant compact", "done": false},
-    {"type": "comparatif", "title": "Cosori vs Ninja : le duel des rois de l'air fryer", "keyword": "cosori vs ninja", "done": false},
-    {"type": "article", "title": "Tableau des temps de cuisson à l'air fryer : le mémo complet à imprimer", "keyword": "temps de cuisson air fryer", "done": false},
-    {"type": "guide", "title": "Air fryer et santé : ce que dit vraiment la science sur la friture à air chaud", "keyword": "air fryer santé", "done": false},
-    {"type": "comparatif", "title": "Meilleurs air fryers silencieux : le comparatif décibel par décibel", "keyword": "air fryer silencieux", "done": false},
-    {"type": "article", "title": "Poisson à l'air fryer : saumon, cabillaud, panure... le guide complet", "keyword": "poisson air fryer", "done": false},
-    {"type": "guide", "title": "Quelle taille d'air fryer choisir ? Le guide des capacités (2 à 11 litres)", "keyword": "taille air fryer litres", "done": false},
-    {"type": "comparatif", "title": "Air fryer vs friteuse à huile classique : goût, santé, coût, verdict", "keyword": "air fryer vs friteuse", "done": false},
-    {"type": "article", "title": "Desserts à l'air fryer : cookies, moelleux, beignets... 10 recettes bluffantes", "keyword": "dessert air fryer", "done": false},
-    {"type": "guide", "title": "Air fryer connecté : gadget ou vraie révolution ? Le guide 2026", "keyword": "air fryer connecté wifi", "done": false},
-    {"type": "comparatif", "title": "Moulinex vs Tefal : le comparatif des air fryers français", "keyword": "moulinex vs tefal air fryer", "done": false},
-    {"type": "article", "title": "Réchauffer une pizza à l'air fryer : la méthode qui change tout", "keyword": "réchauffer pizza air fryer", "done": false},
-    {"type": "guide", "title": "Les accessoires indispensables pour air fryer : le guide d'achat complet", "keyword": "accessoires air fryer", "done": false},
-    {"type": "comparatif", "title": "Meilleurs air fryers 9 en 1 et multifonctions : le comparatif complet", "keyword": "air fryer multifonction", "done": false},
-    {"type": "article", "title": "Air fryer : 20 aliments à ne jamais y mettre (et pourquoi)", "keyword": "aliments interdits air fryer", "done": false},
-    {"type": "guide", "title": "Consommation électrique d'un air fryer : combien ça coûte vraiment ?", "keyword": "consommation électrique air fryer", "done": false},
-    {"type": "comparatif", "title": "Air fryer Lidl, Action, Aldi : que valent les modèles discount ?", "keyword": "air fryer lidl silvercrest", "done": false},
-    {"type": "article", "title": "Steak et viande rouge à l'air fryer : cuissons bleue, saignante, à point", "keyword": "steak air fryer", "done": false},
-    {"type": "guide", "title": "Premier air fryer : le guide de démarrage complet pour débutants", "keyword": "air fryer débutant", "done": false},
-    {"type": "comparatif", "title": "Meilleurs air fryers avec hublot : cuisiner en gardant un œil sur la cuisson", "keyword": "air fryer hublot vitre", "done": false},
-    {"type": "article", "title": "Batch cooking à l'air fryer : préparer ses repas de la semaine en 2 heures", "keyword": "batch cooking air fryer", "done": false},
-    {"type": "guide", "title": "Air fryer et famille : menus équilibrés pour enfants difficiles", "keyword": "recettes enfants air fryer", "done": false},
-    {"type": "comparatif", "title": "Philips Airfryer série 3000 vs 5000 vs 7000 : laquelle choisir ?", "keyword": "philips airfryer 3000 5000 7000", "done": false},
-    {"type": "article", "title": "Pain et viennoiseries à l'air fryer : croissants, pain frais et brioche maison", "keyword": "pain air fryer", "done": false},
-    {"type": "guide", "title": "Papier cuisson, moules, paniers : quels contenants utiliser dans un air fryer ?", "keyword": "papier cuisson air fryer", "done": false},
-    {"type": "comparatif", "title": "Air fryer à panier vs air fryer four : deux philosophies, un verdict", "keyword": "air fryer panier ou four", "done": false},
-    {"type": "article", "title": "Surgelés à l'air fryer : nuggets, cordons bleus, frites... les temps parfaits", "keyword": "surgelés air fryer", "done": false},
-    {"type": "guide", "title": "Air fryer en camping-car et van : le guide de la cuisine nomade", "keyword": "air fryer camping car", "done": false},
-    {"type": "comparatif", "title": "Meilleurs air fryers grande capacité (8L et plus) : le comparatif", "keyword": "air fryer grande capacité", "done": false},
-    {"type": "article", "title": "Apéritif à l'air fryer : 15 idées de bouchées croustillantes express", "keyword": "apéritif air fryer", "done": false},
-    {"type": "guide", "title": "Que faire quand son air fryer sent le plastique ? Causes et solutions", "keyword": "air fryer odeur plastique", "done": false},
-    {"type": "comparatif", "title": "Ninja Foodi MAX Dual Zone vs Ninja Speedi : le duel fratricide", "keyword": "ninja dual zone vs speedi", "done": false},
-    {"type": "article", "title": "Cuisiner sans huile à l'air fryer : mythe marketing ou réalité ?", "keyword": "air fryer sans huile", "done": false},
-    {"type": "guide", "title": "Air fryer et régime : recettes légères et riches en protéines", "keyword": "recettes légères air fryer", "done": false},
-    {"type": "comparatif", "title": "Air fryer vs four à micro-ondes avec crisp : lequel garder sur son plan de travail ?", "keyword": "air fryer vs micro ondes crisp", "done": false},
-    {"type": "article", "title": "Noël à l'air fryer : le menu de fêtes complet, du toast au dessert", "keyword": "menu noël air fryer", "done": false}
+    {
+      "type": "guide",
+      "title": "Air fryer XXL : le guide complet pour les familles nombreuses",
+      "keyword": "air fryer xxl famille",
+      "done": true,
+      "published": "2026-07-16"
+    },
+    {
+      "type": "comparatif",
+      "title": "Ninja vs Philips : quel air fryer choisir en 2026 ?",
+      "keyword": "ninja vs philips air fryer",
+      "done": false
+    },
+    {
+      "type": "article",
+      "title": "Frites croustillantes à l'air fryer : la méthode parfaite étape par étape",
+      "keyword": "frites air fryer croustillantes",
+      "done": false
+    },
+    {
+      "type": "guide",
+      "title": "Air fryer double tiroir : pourquoi et comment bien le choisir",
+      "keyword": "air fryer double tiroir",
+      "done": false
+    },
+    {
+      "type": "comparatif",
+      "title": "Meilleurs air fryers pas chers : le comparatif des modèles à moins de 100 €",
+      "keyword": "air fryer pas cher",
+      "done": false
+    },
+    {
+      "type": "article",
+      "title": "Poulet rôti entier à l'air fryer : temps de cuisson et astuces de chef",
+      "keyword": "poulet air fryer",
+      "done": false
+    },
+    {
+      "type": "guide",
+      "title": "Comment nettoyer son air fryer : le guide d'entretien complet",
+      "keyword": "nettoyer air fryer",
+      "done": false
+    },
+    {
+      "type": "comparatif",
+      "title": "Air fryer ou four traditionnel : le match complet (consommation, goût, praticité)",
+      "keyword": "air fryer ou four",
+      "done": false
+    },
+    {
+      "type": "article",
+      "title": "Légumes rôtis à l'air fryer : 12 recettes et temps de cuisson précis",
+      "keyword": "légumes air fryer",
+      "done": false
+    },
+    {
+      "type": "guide",
+      "title": "Air fryer pour étudiant : bien s'équiper avec un petit budget et un petit espace",
+      "keyword": "air fryer étudiant compact",
+      "done": false
+    },
+    {
+      "type": "comparatif",
+      "title": "Cosori vs Ninja : le duel des rois de l'air fryer",
+      "keyword": "cosori vs ninja",
+      "done": false
+    },
+    {
+      "type": "article",
+      "title": "Tableau des temps de cuisson à l'air fryer : le mémo complet à imprimer",
+      "keyword": "temps de cuisson air fryer",
+      "done": false
+    },
+    {
+      "type": "guide",
+      "title": "Air fryer et santé : ce que dit vraiment la science sur la friture à air chaud",
+      "keyword": "air fryer santé",
+      "done": false
+    },
+    {
+      "type": "comparatif",
+      "title": "Meilleurs air fryers silencieux : le comparatif décibel par décibel",
+      "keyword": "air fryer silencieux",
+      "done": false
+    },
+    {
+      "type": "article",
+      "title": "Poisson à l'air fryer : saumon, cabillaud, panure... le guide complet",
+      "keyword": "poisson air fryer",
+      "done": false
+    },
+    {
+      "type": "guide",
+      "title": "Quelle taille d'air fryer choisir ? Le guide des capacités (2 à 11 litres)",
+      "keyword": "taille air fryer litres",
+      "done": false
+    },
+    {
+      "type": "comparatif",
+      "title": "Air fryer vs friteuse à huile classique : goût, santé, coût, verdict",
+      "keyword": "air fryer vs friteuse",
+      "done": false
+    },
+    {
+      "type": "article",
+      "title": "Desserts à l'air fryer : cookies, moelleux, beignets... 10 recettes bluffantes",
+      "keyword": "dessert air fryer",
+      "done": false
+    },
+    {
+      "type": "guide",
+      "title": "Air fryer connecté : gadget ou vraie révolution ? Le guide 2026",
+      "keyword": "air fryer connecté wifi",
+      "done": false
+    },
+    {
+      "type": "comparatif",
+      "title": "Moulinex vs Tefal : le comparatif des air fryers français",
+      "keyword": "moulinex vs tefal air fryer",
+      "done": false
+    },
+    {
+      "type": "article",
+      "title": "Réchauffer une pizza à l'air fryer : la méthode qui change tout",
+      "keyword": "réchauffer pizza air fryer",
+      "done": false
+    },
+    {
+      "type": "guide",
+      "title": "Les accessoires indispensables pour air fryer : le guide d'achat complet",
+      "keyword": "accessoires air fryer",
+      "done": false
+    },
+    {
+      "type": "comparatif",
+      "title": "Meilleurs air fryers 9 en 1 et multifonctions : le comparatif complet",
+      "keyword": "air fryer multifonction",
+      "done": false
+    },
+    {
+      "type": "article",
+      "title": "Air fryer : 20 aliments à ne jamais y mettre (et pourquoi)",
+      "keyword": "aliments interdits air fryer",
+      "done": false
+    },
+    {
+      "type": "guide",
+      "title": "Consommation électrique d'un air fryer : combien ça coûte vraiment ?",
+      "keyword": "consommation électrique air fryer",
+      "done": false
+    },
+    {
+      "type": "comparatif",
+      "title": "Air fryer Lidl, Action, Aldi : que valent les modèles discount ?",
+      "keyword": "air fryer lidl silvercrest",
+      "done": false
+    },
+    {
+      "type": "article",
+      "title": "Steak et viande rouge à l'air fryer : cuissons bleue, saignante, à point",
+      "keyword": "steak air fryer",
+      "done": false
+    },
+    {
+      "type": "guide",
+      "title": "Premier air fryer : le guide de démarrage complet pour débutants",
+      "keyword": "air fryer débutant",
+      "done": false
+    },
+    {
+      "type": "comparatif",
+      "title": "Meilleurs air fryers avec hublot : cuisiner en gardant un œil sur la cuisson",
+      "keyword": "air fryer hublot vitre",
+      "done": false
+    },
+    {
+      "type": "article",
+      "title": "Batch cooking à l'air fryer : préparer ses repas de la semaine en 2 heures",
+      "keyword": "batch cooking air fryer",
+      "done": false
+    },
+    {
+      "type": "guide",
+      "title": "Air fryer et famille : menus équilibrés pour enfants difficiles",
+      "keyword": "recettes enfants air fryer",
+      "done": false
+    },
+    {
+      "type": "comparatif",
+      "title": "Philips Airfryer série 3000 vs 5000 vs 7000 : laquelle choisir ?",
+      "keyword": "philips airfryer 3000 5000 7000",
+      "done": false
+    },
+    {
+      "type": "article",
+      "title": "Pain et viennoiseries à l'air fryer : croissants, pain frais et brioche maison",
+      "keyword": "pain air fryer",
+      "done": false
+    },
+    {
+      "type": "guide",
+      "title": "Papier cuisson, moules, paniers : quels contenants utiliser dans un air fryer ?",
+      "keyword": "papier cuisson air fryer",
+      "done": false
+    },
+    {
+      "type": "comparatif",
+      "title": "Air fryer à panier vs air fryer four : deux philosophies, un verdict",
+      "keyword": "air fryer panier ou four",
+      "done": false
+    },
+    {
+      "type": "article",
+      "title": "Surgelés à l'air fryer : nuggets, cordons bleus, frites... les temps parfaits",
+      "keyword": "surgelés air fryer",
+      "done": false
+    },
+    {
+      "type": "guide",
+      "title": "Air fryer en camping-car et van : le guide de la cuisine nomade",
+      "keyword": "air fryer camping car",
+      "done": false
+    },
+    {
+      "type": "comparatif",
+      "title": "Meilleurs air fryers grande capacité (8L et plus) : le comparatif",
+      "keyword": "air fryer grande capacité",
+      "done": false
+    },
+    {
+      "type": "article",
+      "title": "Apéritif à l'air fryer : 15 idées de bouchées croustillantes express",
+      "keyword": "apéritif air fryer",
+      "done": false
+    },
+    {
+      "type": "guide",
+      "title": "Que faire quand son air fryer sent le plastique ? Causes et solutions",
+      "keyword": "air fryer odeur plastique",
+      "done": false
+    },
+    {
+      "type": "comparatif",
+      "title": "Ninja Foodi MAX Dual Zone vs Ninja Speedi : le duel fratricide",
+      "keyword": "ninja dual zone vs speedi",
+      "done": false
+    },
+    {
+      "type": "article",
+      "title": "Cuisiner sans huile à l'air fryer : mythe marketing ou réalité ?",
+      "keyword": "air fryer sans huile",
+      "done": false
+    },
+    {
+      "type": "guide",
+      "title": "Air fryer et régime : recettes légères et riches en protéines",
+      "keyword": "recettes légères air fryer",
+      "done": false
+    },
+    {
+      "type": "comparatif",
+      "title": "Air fryer vs four à micro-ondes avec crisp : lequel garder sur son plan de travail ?",
+      "keyword": "air fryer vs micro ondes crisp",
+      "done": false
+    },
+    {
+      "type": "article",
+      "title": "Noël à l'air fryer : le menu de fêtes complet, du toast au dessert",
+      "keyword": "menu noël air fryer",
+      "done": false
+    }
   ]
 }
