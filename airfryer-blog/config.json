@@ -1,11 +1,11 @@
 {
   "site_name": "Croustille",
   "site_tagline": "Le guide français de l'air fryer",
-  "site_url": "https://VOTRE-SITE.netlify.app",
+  "site_url": "http://lecroustillant.fr/",
   "site_description": "Guides complets, comparatifs et conseils d'experts sur les air fryers (friteuses sans huile) : bien choisir, bien cuisiner, bien entretenir.",
   "language": "fr",
   "author": "L'équipe Croustille",
-  "amazon_tag": "VOTRE-TAG-21",
+  "amazon_tag": "lecroustill0e-21",
   "amazon_domain": "www.amazon.fr",
   "adsense_enabled": false,
   "adsense_client": "ca-pub-XXXXXXXXXXXXXXXX",
