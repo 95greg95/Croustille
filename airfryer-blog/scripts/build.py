@@ -161,6 +161,50 @@ def add_heading_anchors(html_text: str) -> tuple[str, list[tuple[str, str]]]:
     return html_text, toc
 
 
+def clean_md_inline(text: str) -> str:
+    """Nettoie une ligne markdown : marqueurs produits, gras, liens."""
+    text = re.sub(r"\{\{product:([^{}]+)\}\}", r"\1", text)
+    text = re.sub(r"\{\{[^{}]*\}\}", "", text)
+    text = re.sub(r"\[([^\]]+)\]\([^)]*\)", r"\1", text)
+    text = re.sub(r"[*_`]", "", text)
+    return text.strip()
+
+
+def extract_recipe(md_text: str) -> dict | None:
+    """Extrait ingrédients, étapes et temps d'un article recette pour le
+    balisage Schema.org Recipe (fiches enrichies Google)."""
+    def section(pattern):
+        m = re.search(rf"^## +{pattern}.*?$", md_text, flags=re.M | re.I)
+        if not m:
+            return ""
+        rest = md_text[m.end():]
+        stop = re.search(r"^## +", rest, flags=re.M)
+        return rest[: stop.start()] if stop else rest
+
+    ing_section = section(r"Ingr[ée]dients")
+    ingredients = [clean_md_inline(x) for x in re.findall(r"^[-*] +(.+)$", ing_section, re.M)]
+
+    steps_section = section(r".*pas [àa] pas") or section(r"Pr[ée]paration")
+    steps = [clean_md_inline(x) for x in re.findall(r"^\d+\. +(.+)$", steps_section, re.M)]
+
+    if not ingredients or not steps:
+        return None
+
+    total_min = 0
+    for lo, hi in re.findall(r"(\d+)(?:\s*(?:à|-)\s*(\d+))?\s*min", section(r"Temps")):
+        total_min += int(hi or lo)
+
+    m = re.search(r"pour +(\d+) +personnes", md_text, flags=re.I)
+    persons = m.group(1) if m else "4"
+
+    return {
+        "ingredients": ingredients,
+        "steps": steps,
+        "total_min": total_min or None,
+        "yield": f"{persons} personnes",
+    }
+
+
 # ------------------------------------------------------------------ gabarits
 
 def adsense_head() -> str:
@@ -189,7 +233,7 @@ def page_shell(title: str, description: str, canonical: str, content: str,
         ("/comparatifs/", "Comparatifs"),
         ("/recettes/", "Recettes"),
         ("/conseils/", "Conseils"),
-        ("/a-propos/", "À propos"),
+        ("/convertisseur/", "Convertisseur"),
     ]
     nav = "".join(f'<a href="{u}">{l}</a>' for u, l in nav_items)
     year = datetime.now().year
@@ -207,6 +251,10 @@ def page_shell(title: str, description: str, canonical: str, content: str,
 <meta property="og:description" content="{esc(description)}">
 <meta property="og:url" content="{canonical}">
 <meta property="og:site_name" content="{esc(CONFIG['site_name'])}">
+<meta property="og:image" content="{SITE}/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
 <meta property="og:locale" content="fr_FR">
 <link rel="alternate" type="application/rss+xml" title="{esc(CONFIG['site_name'])}" href="{SITE}/rss.xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -284,6 +332,7 @@ def load_articles() -> list[dict]:
             "keywords": meta.get("keywords", ""),
             "type": meta.get("type", "article"),
             "faq": extract_faq(body),
+            "recipe": extract_recipe(body) if meta.get("type") == "recette" else None,
             "minutes": reading_time(body),
             "html": html_body,
             "toc": toc,
@@ -344,6 +393,29 @@ def render_article(a: dict, all_articles: list[dict]) -> str:
                 for q, ans in a["faq"]
             ],
         })
+    if a.get("recipe"):
+        r = a["recipe"]
+        recipe_ld = {
+            "@context": "https://schema.org",
+            "@type": "Recipe",
+            "name": a["title"],
+            "description": a["description"],
+            "image": [SITE + "/og-image.png"],
+            "datePublished": a["date"],
+            "author": {"@type": "Organization", "name": CONFIG["author"]},
+            "recipeIngredient": r["ingredients"],
+            "recipeInstructions": [
+                {"@type": "HowToStep", "text": s} for s in r["steps"]
+            ],
+            "recipeYield": r["yield"],
+            "recipeCuisine": "Française",
+            "recipeCategory": "Air fryer",
+            "keywords": a["keywords"],
+            "inLanguage": "fr-FR",
+        }
+        if r["total_min"]:
+            recipe_ld["totalTime"] = f"PT{r['total_min']}M"
+        jsonld.append(recipe_ld)
 
     hero_emoji = a.get("emoji") or TYPE_EMOJI.get(a["type"], "🍟")
     hero_variant = (sum(ord(c) for c in a["slug"]) % 4) + 1
@@ -365,6 +437,7 @@ def render_article(a: dict, all_articles: list[dict]) -> str:
     <p class="card-badge badge-{a['type']}">{label}</p>
     <h1>{esc(a['title'])}</h1>
     <p class="post-meta">Publié le <time datetime="{a['date']}">{d.strftime('%d/%m/%Y')}</time> · {a['minutes']} min de lecture · Par {esc(CONFIG['author'])}</p>
+    {'<button id="print-btn" class="print-btn" type="button">🖨️ Imprimer la recette</button>' if a.get("recipe") else ''}
   </header>
   <p class="disclosure">Cet article contient des liens affiliés Amazon : si vous achetez via ces liens, nous touchons une commission, sans surcoût pour vous. C'est ce qui finance nos tests et guides. <a href="/a-propos/">En savoir plus</a>.</p>
   {toc_html}
@@ -431,6 +504,60 @@ def render_index(articles: list[dict]) -> str:
     return page_shell(
         f"{CONFIG['site_name']} — {CONFIG['site_tagline']}",
         CONFIG["site_description"], SITE + "/", content, jsonld,
+    )
+
+
+def render_converter() -> str:
+    content = """<article class="post">
+  <header class="post-header">
+    <h1>Convertisseur four → air fryer</h1>
+    <p class="page-intro">Adaptez n'importe quelle recette au four pour votre air fryer : entrez la température et le temps indiqués dans la recette, l'outil calcule les réglages équivalents.</p>
+  </header>
+  <div class="conv" id="conv">
+    <div class="conv-grid">
+      <label>Température de la recette au four
+        <input type="number" id="conv-temp" min="80" max="280" step="5" value="200" inputmode="numeric"> °C
+      </label>
+      <label>Temps de cuisson au four
+        <input type="number" id="conv-time" min="1" max="240" step="1" value="30" inputmode="numeric"> min
+      </label>
+      <label>Type de four de la recette
+        <select id="conv-type">
+          <option value="statique">Four traditionnel (statique)</option>
+          <option value="tournante">Four à chaleur tournante</option>
+        </select>
+      </label>
+    </div>
+    <div class="conv-result" id="conv-result" aria-live="polite"></div>
+    <p class="conv-note">⚠️ Ces valeurs sont un point de départ fiable, mais chaque appareil varie : vérifiez la cuisson 2-3 minutes avant la fin la première fois, vous pourrez toujours prolonger.</p>
+  </div>
+  <div class="post-body">
+    <h2>Comment fonctionne cette conversion ?</h2>
+    <p>Un air fryer est un petit four à convection très puissant : l'air chaud circule vite dans une cavité réduite, ce qui accélère les transferts de chaleur. La règle éprouvée : <strong>par rapport à un four traditionnel, baissez la température d'environ 30 °C et réduisez le temps de 20 %</strong>. Par rapport à un four à chaleur tournante (déjà ventilé), une baisse de 20 °C suffit.</p>
+    <h2>Repères rapides pour les cuissons courantes</h2>
+    <table>
+      <tr><th>Plat</th><th>Au four</th><th>À l'air fryer</th></tr>
+      <tr><td>Frites surgelées</td><td>220 °C · 25 min</td><td>190 °C · 15-18 min</td></tr>
+      <tr><td>Blanc de poulet</td><td>200 °C · 25 min</td><td>170 °C · 18-20 min</td></tr>
+      <tr><td>Légumes rôtis</td><td>200 °C · 35 min</td><td>180 °C · 20-25 min</td></tr>
+      <tr><td>Poisson pané</td><td>210 °C · 20 min</td><td>190 °C · 12-14 min</td></tr>
+      <tr><td>Gâteau / moelleux</td><td>180 °C · 30 min</td><td>150-160 °C · 22-25 min</td></tr>
+    </table>
+    <p>Trois réflexes complètent la conversion : cuisez en une seule couche, secouez ou retournez à mi-cuisson, et n'ouvrez pas le tiroir toutes les deux minutes. Pour aller plus loin, consultez nos <a href="/recettes/">recettes calibrées pour l'air fryer</a> et nos <a href="/conseils/">conseils de cuisson</a>.</p>
+  </div>
+</article>"""
+    jsonld = [{
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "Convertisseur four → air fryer",
+        "description": "Convertissez les températures et temps de cuisson du four traditionnel vers l'air fryer.",
+        "url": SITE + "/convertisseur/",
+        "inLanguage": "fr-FR",
+    }]
+    return page_shell(
+        f"Convertisseur four → air fryer : températures et temps | {CONFIG['site_name']}",
+        "Adaptez n'importe quelle recette au four pour votre air fryer : notre convertisseur calcule la température et le temps équivalents, avec tableau de repères.",
+        SITE + "/convertisseur/", content, jsonld,
     )
 
 
@@ -556,6 +683,11 @@ def main():
         d.mkdir(parents=True, exist_ok=True)
         (d / "index.html").write_text(static_page(title, f"/{slug}/", body, noindex), encoding="utf-8")
 
+    # Convertisseur four → air fryer
+    d = OUT / "convertisseur"
+    d.mkdir(parents=True, exist_ok=True)
+    (d / "index.html").write_text(render_converter(), encoding="utf-8")
+
     # 404
     (OUT / "404.html").write_text(
         static_page("Page introuvable", "/404.html",
@@ -569,7 +701,7 @@ def main():
 
     # sitemap.xml
     urls = [("/", None)] + [(f"/{TYPE_SLUG[t]}/", None) for t, *_ in cats] \
-        + [("/a-propos/", None)] + [(a["url"], a["date"]) for a in articles]
+        + [("/a-propos/", None), ("/convertisseur/", None)] + [(a["url"], a["date"]) for a in articles]
     entries = "".join(
         f"<url><loc>{SITE}{u}</loc>{f'<lastmod>{d}</lastmod>' if d else ''}</url>"
         for u, d in urls

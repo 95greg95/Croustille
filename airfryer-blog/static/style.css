@@ -269,3 +269,47 @@ html { scroll-behavior: smooth; }
   .search-hint { display: none; }
   .search-overlay { padding-top: 2vh; }
 }
+
+/* ---------- V4 : bouton imprimer ---------- */
+.print-btn {
+  font: inherit; font-weight: 700; font-size: .9rem; cursor: pointer;
+  background: var(--card); border: 1px solid var(--line); border-radius: 999px;
+  padding: .45rem 1rem; margin-top: .75rem; color: var(--ink);
+}
+.print-btn:hover { border-color: var(--gold); color: var(--crust); }
+
+/* ---------- V4 : convertisseur ---------- */
+.conv {
+  background: var(--card); border: 1px solid var(--line); border-radius: 12px;
+  padding: 1.5rem; margin: 1.5rem 0; position: relative; overflow: hidden;
+}
+.conv::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 3px; background: var(--heat); }
+.conv-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 1rem; }
+.conv label { font-weight: 600; font-size: .92rem; display: flex; flex-direction: column; gap: .4rem; }
+.conv input, .conv select {
+  font: inherit; font-size: 1.05rem; padding: .55rem .8rem;
+  border: 2px solid var(--line); border-radius: 8px; background: var(--paper);
+  width: 100%; box-sizing: border-box;
+}
+.conv input:focus, .conv select:focus { border-color: var(--gold); outline: none; }
+.conv-result { margin-top: 1.25rem; text-align: center; }
+.conv-badge {
+  display: inline-flex; align-items: baseline; gap: .75rem;
+  background: var(--ink); color: #fff; border-radius: 12px; padding: .8rem 1.6rem;
+}
+.conv-big { font-family: "Fraunces", Georgia, serif; font-size: 1.9rem; font-weight: 720; color: #f2b544; }
+.conv-sep { color: rgba(255,255,255,.5); font-size: 1.4rem; }
+.conv-detail { font-size: .88rem; color: var(--smoke); margin: .6rem 0 0; }
+.conv-note { font-size: .85rem; color: var(--smoke); margin: 1rem 0 0; }
+.conv-empty { color: var(--smoke); }
+
+/* ---------- V4 : impression épurée des recettes ---------- */
+@media print {
+  #progress, .site-header, .site-footer, .breadcrumb, .post-hero, .disclosure,
+  .toc, .related, .product-box, .art, .print-btn, .search-btn, .consent-banner { display: none !important; }
+  body { font-size: 11pt; color: #000; }
+  .post { max-width: 100%; }
+  .post-body a, .aff-link { color: #000; text-decoration: none; font-weight: inherit; }
+  .post-body table { display: table; }
+  .post-body h2 { page-break-after: avoid; }
+}

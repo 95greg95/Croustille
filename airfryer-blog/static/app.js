@@ -19,6 +19,48 @@
     update();
   }
 
+  /* ---------- Bouton imprimer (recettes) ---------- */
+  var printBtn = document.getElementById("print-btn");
+  if (printBtn) {
+    printBtn.addEventListener("click", function () { window.print(); });
+  }
+
+  /* ---------- Convertisseur four → air fryer ---------- */
+  var conv = document.getElementById("conv");
+  if (conv) {
+    var tempIn = document.getElementById("conv-temp");
+    var timeIn = document.getElementById("conv-time");
+    var typeIn = document.getElementById("conv-type");
+    var out = document.getElementById("conv-result");
+
+    var compute = function () {
+      var temp = parseInt(tempIn.value, 10);
+      var time = parseInt(timeIn.value, 10);
+      if (isNaN(temp) || isNaN(time) || temp < 80 || time < 1) {
+        out.innerHTML = '<p class="conv-empty">Entrez une température et un temps valides.</p>';
+        return;
+      }
+      var drop = typeIn.value === "tournante" ? 20 : 30;
+      var afTemp = Math.max(120, Math.min(200, Math.round((temp - drop) / 5) * 5));
+      var afTime = Math.max(1, Math.round(time * 0.8));
+      var lo = Math.max(1, afTime - Math.max(1, Math.round(afTime * 0.1)));
+      out.innerHTML =
+        '<div class="conv-badge">' +
+        '<span class="conv-big">' + afTemp + " °C</span>" +
+        '<span class="conv-sep">·</span>' +
+        '<span class="conv-big">' + lo + (lo !== afTime ? "-" + afTime : "") + " min</span>" +
+        "</div>" +
+        '<p class="conv-detail">Pensez à secouer ou retourner à mi-cuisson, et à cuire en une seule couche.</p>';
+    };
+
+    ["input", "change"].forEach(function (ev) {
+      tempIn.addEventListener(ev, compute);
+      timeIn.addEventListener(ev, compute);
+      typeIn.addEventListener(ev, compute);
+    });
+    compute();
+  }
+
   /* ---------- Recherche interne ---------- */
   var btn = document.getElementById("search-btn");
   if (!btn) return;
