@@ -284,14 +284,26 @@ html { scroll-behavior: smooth; }
   padding: 1.5rem; margin: 1.5rem 0; position: relative; overflow: hidden;
 }
 .conv::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 3px; background: var(--heat); }
-.conv-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 1rem; }
-.conv label { font-weight: 600; font-size: .92rem; display: flex; flex-direction: column; gap: .4rem; }
-.conv input, .conv select {
-  font: inherit; font-size: 1.05rem; padding: .55rem .8rem;
+.conv-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; align-items: end; }
+.conv label { font-weight: 600; font-size: .92rem; display: flex; flex-direction: column; gap: .4rem; white-space: nowrap; }
+.conv-field {
+  display: flex; align-items: center; gap: .5rem;
+  border: 2px solid var(--line); border-radius: 8px; background: var(--paper);
+  padding: 0 .8rem; box-sizing: border-box; height: 2.9rem;
+}
+.conv-field:focus-within { border-color: var(--gold); }
+.conv-field input {
+  font: inherit; font-size: 1.05rem; border: 0; background: transparent;
+  flex: 1; min-width: 0; padding: 0; height: 100%;
+}
+.conv-field input:focus { outline: none; }
+.conv-unit { color: var(--smoke); font-weight: 700; font-size: .9rem; }
+.conv select {
+  font: inherit; font-size: 1rem; padding: 0 .8rem; height: 2.9rem;
   border: 2px solid var(--line); border-radius: 8px; background: var(--paper);
   width: 100%; box-sizing: border-box;
 }
-.conv input:focus, .conv select:focus { border-color: var(--gold); outline: none; }
+.conv select:focus { border-color: var(--gold); outline: none; }
 .conv-result { margin-top: 1.25rem; text-align: center; }
 .conv-badge {
   display: inline-flex; align-items: baseline; gap: .75rem;

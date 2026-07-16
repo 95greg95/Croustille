@@ -515,16 +515,22 @@ def render_converter() -> str:
   </header>
   <div class="conv" id="conv">
     <div class="conv-grid">
-      <label>Température de la recette au four
-        <input type="number" id="conv-temp" min="80" max="280" step="5" value="200" inputmode="numeric"> °C
+      <label>Température au four
+        <span class="conv-field">
+          <input type="number" id="conv-temp" min="80" max="280" step="5" value="200" inputmode="numeric">
+          <span class="conv-unit">°C</span>
+        </span>
       </label>
-      <label>Temps de cuisson au four
-        <input type="number" id="conv-time" min="1" max="240" step="1" value="30" inputmode="numeric"> min
+      <label>Temps de cuisson
+        <span class="conv-field">
+          <input type="number" id="conv-time" min="1" max="240" step="1" value="30" inputmode="numeric">
+          <span class="conv-unit">min</span>
+        </span>
       </label>
-      <label>Type de four de la recette
+      <label>Type de four
         <select id="conv-type">
-          <option value="statique">Four traditionnel (statique)</option>
-          <option value="tournante">Four à chaleur tournante</option>
+          <option value="statique">Traditionnel (statique)</option>
+          <option value="tournante">Chaleur tournante</option>
         </select>
       </label>
     </div>
