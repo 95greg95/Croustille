@@ -1,0 +1,37 @@
+name: Article quotidien
+
+on:
+  schedule:
+    - cron: "30 5 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Générer l'article du jour
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python airfryer-blog/scripts/generate_article.py
+
+      - name: Vérifier que le site se construit
+        run: |
+          pip install -r airfryer-blog/requirements.txt
+          python airfryer-blog/scripts/build.py
+
+      - name: Publier
+        run: |
+          git config user.name "croustille-bot"
+          git config user.email "actions@github.com"
+          git add airfryer-blog/content/
+          git diff --cached --quiet || git commit -m "Article du $(date +%d/%m/%Y)"
+          git push
