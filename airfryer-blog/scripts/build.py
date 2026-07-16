@@ -147,7 +147,7 @@ def add_heading_anchors(html_text: str) -> tuple[str, list[tuple[str, str]]]:
 
     def repl(m):
         inner = m.group(1)
-        text = re.sub(r"<[^>]+>", "", inner).strip()
+        text = html.unescape(re.sub(r"<[^>]+>", "", inner)).strip()
         anchor = slug_anchor(text)
         i = 2
         while anchor in used:
