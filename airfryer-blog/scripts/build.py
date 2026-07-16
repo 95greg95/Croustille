@@ -197,11 +197,18 @@ def extract_recipe(md_text: str) -> dict | None:
     m = re.search(r"pour +(\d+) +personnes", md_text, flags=re.I)
     persons = m.group(1) if m else "4"
 
+    table_rows = []
+    for line in section(r"Temps").splitlines():
+        s = line.strip()
+        if s.startswith("|") and not re.match(r"^\|[\s:|\-]+\|$", s.replace(" ", "")):
+            table_rows.append([clean_md_inline(c) for c in s.strip("|").split("|")])
+
     return {
         "ingredients": ingredients,
         "steps": steps,
         "total_min": total_min or None,
         "yield": f"{persons} personnes",
+        "table": table_rows,
     }
 
 
@@ -222,7 +229,8 @@ def adsense_head() -> str:
 
 
 def page_shell(title: str, description: str, canonical: str, content: str,
-               jsonld: list[dict] | None = None, noindex: bool = False) -> str:
+               jsonld: list[dict] | None = None, noindex: bool = False,
+               body_class: str = "") -> str:
     scripts = "".join(
         f'<script type="application/ld+json">{json.dumps(j, ensure_ascii=False)}</script>'
         for j in (jsonld or [])
@@ -265,7 +273,7 @@ def page_shell(title: str, description: str, canonical: str, content: str,
 {adsense_head()}
 {scripts}
 </head>
-<body>
+<body{f' class="{body_class}"' if body_class else ''}>
 <div id="progress" aria-hidden="true"></div>
 <header class="site-header">
   <div class="wrap header-inner">
@@ -291,6 +299,7 @@ def page_shell(title: str, description: str, canonical: str, content: str,
       <a href="/a-propos/">À propos</a>
       <a href="/mentions-legales/">Mentions légales</a>
       <a href="/confidentialite/">Politique de confidentialité</a>
+      <a href="/rss.xml">Flux RSS</a>
     </nav>
     <p class="footer-copy">© {year} {esc(CONFIG['site_name'])} — {esc(CONFIG['site_tagline'])}</p>
   </div>
@@ -338,6 +347,34 @@ def load_articles() -> list[dict]:
             "url": f"/{slug}/",
         })
     return articles
+
+
+def render_print_sheet(a: dict) -> str:
+    """Fiche recette compacte, invisible à l'écran, seule imprimée sur les recettes."""
+    r = a["recipe"]
+    ing = "".join(f"<li>{esc(i)}</li>" for i in r["ingredients"])
+    steps = "".join(f"<li>{esc(s)}</li>" for s in r["steps"])
+    table = ""
+    if r.get("table"):
+        head, *rows = r["table"]
+        table = (
+            "<table><tr>" + "".join(f"<th>{esc(c)}</th>" for c in head) + "</tr>"
+            + "".join(
+                "<tr>" + "".join(f"<td>{esc(c)}</td>" for c in row) + "</tr>"
+                for row in rows
+            ) + "</table>"
+        )
+    total = f" · environ {r['total_min']} min au total" if r["total_min"] else ""
+    return f"""<div id="print-sheet" aria-hidden="true">
+  <h1>{esc(a['title'])}</h1>
+  <p class="ps-meta">{esc(CONFIG['site_name'])} · Pour {esc(r['yield'])}{total} · {SITE}{a['url']}</p>
+  <div class="ps-cols">
+    <div class="ps-ing"><h2>Ingrédients</h2><ul>{ing}</ul></div>
+    <div class="ps-tbl"><h2>Temps &amp; température</h2>{table}</div>
+  </div>
+  <h2>Préparation</h2>
+  <ol class="ps-steps">{steps}</ol>
+</div>"""
 
 
 def render_article(a: dict, all_articles: list[dict]) -> str:
@@ -444,13 +481,15 @@ def render_article(a: dict, all_articles: list[dict]) -> str:
 {a['html']}
   </div>
 </article>
-{related_html}"""
+{related_html}
+{render_print_sheet(a) if a.get("recipe") else ''}"""
     return page_shell(
         f"{a['title']} | {CONFIG['site_name']}",
         a["description"] or CONFIG["site_description"],
         SITE + a["url"],
         content,
         jsonld,
+        body_class="has-print-sheet" if a.get("recipe") else "",
     )
 
 

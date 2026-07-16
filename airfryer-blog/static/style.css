@@ -315,8 +315,13 @@ html { scroll-behavior: smooth; }
 .conv-note { font-size: .85rem; color: var(--smoke); margin: 1rem 0 0; }
 .conv-empty { color: var(--smoke); }
 
-/* ---------- V4 : impression épurée des recettes ---------- */
+/* ---------- V4 : fiche recette imprimable (1 page) ---------- */
+#print-sheet { display: none; }
+
 @media print {
+  @page { margin: 11mm; }
+
+  /* Pages hors recettes : impression simple sans habillage */
   #progress, .site-header, .site-footer, .breadcrumb, .post-hero, .disclosure,
   .toc, .related, .product-box, .art, .print-btn, .search-btn, .consent-banner { display: none !important; }
   body { font-size: 11pt; color: #000; }
@@ -324,4 +329,26 @@ html { scroll-behavior: smooth; }
   .post-body a, .aff-link { color: #000; text-decoration: none; font-weight: inherit; }
   .post-body table { display: table; }
   .post-body h2 { page-break-after: avoid; }
+
+  /* Recettes : on n'imprime QUE la fiche compacte */
+  body.has-print-sheet main > * { display: none !important; }
+  body.has-print-sheet #print-sheet { display: block !important; }
+
+  #print-sheet { color: #000; font-size: 10.5pt; line-height: 1.4; }
+  #print-sheet h1 { font-size: 16pt; margin: 0 0 3pt; line-height: 1.15; }
+  #print-sheet h2 {
+    font-size: 11.5pt; margin: 8pt 0 3pt; padding-bottom: 1pt;
+    border-bottom: 1pt solid #999;
+  }
+  #print-sheet .ps-meta { font-size: 8.5pt; color: #444; margin: 0 0 6pt; }
+  #print-sheet .ps-cols { display: flex; gap: 18pt; align-items: flex-start; }
+  #print-sheet .ps-ing { flex: 1; }
+  #print-sheet .ps-tbl { flex: 1; }
+  #print-sheet ul { margin: 3pt 0; padding-left: 12pt; }
+  #print-sheet ul li { margin: 1.5pt 0; }
+  #print-sheet table { border-collapse: collapse; width: 100%; font-size: 9pt; margin: 3pt 0; }
+  #print-sheet th, #print-sheet td { border: .75pt solid #999; padding: 2.5pt 5pt; text-align: left; }
+  #print-sheet th { background: #eee; }
+  #print-sheet .ps-steps { margin: 3pt 0 0; padding-left: 14pt; }
+  #print-sheet .ps-steps li { margin: 3pt 0; page-break-inside: avoid; }
 }
