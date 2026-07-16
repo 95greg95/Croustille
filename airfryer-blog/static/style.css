@@ -1,0 +1,157 @@
+/* Croustille — identité : blanc net, encre chaude, doré friture.
+   Display : Fraunces · Texte : Public Sans */
+
+:root {
+  --paper: #ffffff;
+  --ink: #221e1a;
+  --smoke: #6b6259;
+  --gold: #c27803;
+  --crust: #7a4a06;
+  --olive: #5a6b2f;
+  --line: #eae4da;
+  --card: #fbf9f6;
+  --heat: linear-gradient(90deg, #f2b544, #c27803 55%, #7a4a06);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "Public Sans", system-ui, sans-serif;
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  color: var(--ink);
+  background: var(--paper);
+}
+
+.wrap { max-width: 1040px; margin: 0 auto; padding: 0 1.25rem; }
+
+h1, h2, h3, .logo { font-family: "Fraunces", Georgia, serif; line-height: 1.2; }
+
+a { color: var(--crust); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+a:hover { color: var(--gold); }
+a:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; border-radius: 2px; }
+
+/* ---------- entête ---------- */
+.site-header { border-bottom: 1px solid var(--line); position: relative; }
+.site-header::after {
+  content: ""; display: block; height: 3px; background: var(--heat);
+}
+.header-inner { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-top: .9rem; padding-bottom: .9rem; flex-wrap: wrap; }
+.logo { display: inline-flex; align-items: center; gap: .5rem; font-size: 1.45rem; font-weight: 720; color: var(--ink); text-decoration: none; }
+.logo em { font-style: normal; color: var(--gold); }
+.logo-mark { width: 1.5em; height: 1.5em; color: var(--gold); }
+.site-nav { display: flex; gap: 1.25rem; flex-wrap: wrap; }
+.site-nav a { text-decoration: none; font-weight: 500; color: var(--ink); font-size: .97rem; }
+.site-nav a:hover { color: var(--gold); }
+
+/* ---------- accueil ---------- */
+.hero { padding: 3rem 0 2.5rem; border-bottom: 1px solid var(--line); }
+.hero-eyebrow { text-transform: uppercase; letter-spacing: .12em; font-size: .78rem; font-weight: 700; color: var(--gold); margin: 0 0 .75rem; }
+.hero-title { font-size: clamp(1.7rem, 4.5vw, 2.7rem); font-weight: 720; margin: 0 0 .75rem; max-width: 22ch; }
+.hero-title a { color: var(--ink); text-decoration: none; }
+.hero-title a:hover { color: var(--crust); }
+.hero-desc { font-size: 1.12rem; color: var(--smoke); max-width: 62ch; margin: 0 0 1.5rem; }
+.hero-btn {
+  display: inline-block; background: var(--ink); color: #fff; text-decoration: none;
+  padding: .7rem 1.3rem; border-radius: 999px; font-weight: 700; font-size: .97rem;
+}
+.hero-btn:hover { background: var(--crust); color: #fff; }
+
+.section-title { font-size: 1.35rem; margin: 2.5rem 0 1.25rem; }
+
+/* ---------- cartes ---------- */
+.card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.25rem; padding-bottom: 3rem; }
+.card {
+  background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+  padding: 1.25rem 1.25rem 1rem; position: relative; overflow: hidden;
+}
+.card::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 3px; background: var(--heat); }
+.card-badge {
+  display: inline-block; font-size: .72rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .1em; padding: .18rem .6rem; border-radius: 999px; margin: 0 0 .6rem;
+}
+.badge-guide { background: #fdf1dc; color: var(--crust); }
+.badge-comparatif { background: #f1e5d8; color: #5c3703; }
+.badge-article { background: #eef1e2; color: var(--olive); }
+.card-title { font-size: 1.15rem; margin: 0 0 .5rem; font-weight: 650; }
+.card-title a { color: var(--ink); text-decoration: none; }
+.card-title a:hover { color: var(--crust); }
+.card-desc { color: var(--smoke); font-size: .95rem; margin: 0 0 .75rem; }
+.card-meta { font-size: .82rem; color: var(--smoke); margin: 0; }
+
+/* ---------- pages & articles ---------- */
+.page-header { padding: 2.5rem 0 1.5rem; }
+.page-header h1 { font-size: clamp(1.6rem, 4vw, 2.3rem); margin: 0 0 .5rem; }
+.page-intro { color: var(--smoke); max-width: 65ch; margin: 0 0 1rem; }
+
+.breadcrumb { font-size: .85rem; color: var(--smoke); padding: 1.25rem 0 0; }
+.post { max-width: 760px; margin: 0 auto; }
+.post-header { padding: 1.5rem 0 .5rem; }
+.post-header h1 { font-size: clamp(1.6rem, 4.2vw, 2.4rem); margin: .5rem 0; }
+.post-meta { color: var(--smoke); font-size: .9rem; margin: 0; }
+
+.disclosure {
+  font-size: .85rem; color: var(--smoke); background: var(--card);
+  border-left: 3px solid var(--gold); padding: .7rem 1rem; border-radius: 0 8px 8px 0;
+  margin: 1.25rem 0;
+}
+
+.post-body { padding-bottom: 2rem; }
+.post-body h2 { font-size: 1.5rem; margin: 2.2rem 0 .8rem; }
+.post-body h3 { font-size: 1.18rem; margin: 1.6rem 0 .6rem; }
+.post-body img { max-width: 100%; height: auto; border-radius: 8px; }
+.post-body table { border-collapse: collapse; width: 100%; margin: 1.25rem 0; font-size: .93rem; display: block; overflow-x: auto; }
+.post-body th, .post-body td { border: 1px solid var(--line); padding: .55rem .75rem; text-align: left; vertical-align: top; }
+.post-body th { background: var(--card); font-weight: 700; white-space: nowrap; }
+.post-body blockquote { border-left: 3px solid var(--gold); margin: 1.25rem 0; padding: .25rem 1rem; color: var(--smoke); }
+.post-body code { background: var(--card); padding: .1em .35em; border-radius: 4px; font-size: .9em; }
+
+.aff-link { font-weight: 600; }
+
+.product-box {
+  background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+  padding: 1.25rem 1.4rem; margin: 1.75rem 0; position: relative; overflow: hidden;
+}
+.product-box::before { content: ""; position: absolute; inset: 0 auto 0 0; width: 4px; background: var(--heat); }
+.product-box-name { font-family: "Fraunces", Georgia, serif; font-weight: 650; font-size: 1.15rem; margin: 0 0 .35rem; }
+.product-box-pitch { color: var(--smoke); margin: 0 0 1rem; font-size: .97rem; }
+.product-box-btn {
+  display: inline-block; background: var(--gold); color: #fff; text-decoration: none;
+  font-weight: 700; padding: .6rem 1.2rem; border-radius: 999px; font-size: .95rem;
+}
+.product-box-btn:hover { background: var(--crust); color: #fff; }
+
+.related { border-top: 1px solid var(--line); margin-top: 2rem; padding-top: 1.5rem; }
+.related h2 { font-size: 1.35rem; }
+
+/* ---------- pied de page ---------- */
+.site-footer { border-top: 1px solid var(--line); margin-top: 3rem; padding: 2rem 0; background: var(--card); }
+.footer-disclosure { font-size: .82rem; color: var(--smoke); max-width: 70ch; }
+.footer-nav { display: flex; gap: 1.25rem; flex-wrap: wrap; margin: 1rem 0; font-size: .9rem; }
+.footer-copy { font-size: .82rem; color: var(--smoke); }
+
+/* ---------- consentement cookies ---------- */
+.consent-banner {
+  position: fixed; inset: auto 1rem 1rem 1rem; z-index: 50; max-width: 460px;
+  background: var(--ink); color: #fff; border-radius: 12px; padding: 1.1rem 1.25rem;
+  box-shadow: 0 10px 30px rgba(0,0,0,.25); font-size: .9rem; line-height: 1.55;
+}
+.consent-banner p { margin: 0 0 .8rem; }
+.consent-banner a { color: #f2b544; }
+.consent-actions { display: flex; gap: .6rem; flex-wrap: wrap; }
+.consent-actions button {
+  font: inherit; font-weight: 700; border: 0; border-radius: 999px;
+  padding: .5rem 1.1rem; cursor: pointer;
+}
+.consent-accept { background: var(--gold); color: #fff; }
+.consent-refuse { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,.4) !important; }
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
+
+@media (max-width: 640px) {
+  .header-inner { justify-content: center; text-align: center; }
+  .hero { padding: 2rem 0 1.75rem; }
+}
