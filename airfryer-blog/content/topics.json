@@ -4,8 +4,7 @@
       "type": "guide",
       "title": "Air fryer XXL : le guide complet pour les familles nombreuses",
       "keyword": "air fryer xxl famille",
-      "done": true,
-      "published": "2026-07-16"
+      "done": false
     },
     {
       "type": "comparatif",
@@ -269,6 +268,288 @@
       "type": "article",
       "title": "Noël à l'air fryer : le menu de fêtes complet, du toast au dessert",
       "keyword": "menu noël air fryer",
+      "done": false
+    },
+    {
+      "type": "recette",
+      "title": "Cordon bleu à l'air fryer : cuisson parfaite et cœur fondant",
+      "keyword": "cordon bleu air fryer",
+      "done": false
+    },
+    {
+      "type": "recette",
+      "title": "Nuggets maison à l'air fryer : croustillants sans friture",
+      "keyword": "nuggets air fryer",
+      "done": false
+    },
+    {
+      "type": "recette",
+      "title": "Escalope panée à l'air fryer : la recette croustillante",
+      "keyword": "escalope panée air fryer",
+      "done": false
+    },
+    {
+      "type": "recette",
+      "title": "Poulet pané à l'air fryer : meilleur qu'au four",
+      "keyword": "poulet pané air fryer",
+      "done": false
+    },
+    {
+      "type": "recette",
+      "title": "Filet mignon à l'air fryer : tendre et juteux",
+      "keyword": "filet mignon air fryer",
+      "done": false
+    },
+    {
+      "type": "recette",
+      "title": "Rôti de porc à l'air fryer : cuisson facile",
+      "keyword": "rôti de porc air fryer",
+      "done": false
+    },
+    {
+      "type": "recette",
+      "title": "Magret de canard à l'air fryer : peau croustillante",
+      "keyword": "magret canard air fryer",
+      "done": false
+    },
+    {
+      "type": "recette",
+      "title": "Boulettes de viande à l'air fryer : moelleuses et dorées",
+      "keyword": "boulettes viande air fryer",
+      "done": false
+    },
+    {
+      "type": "recette",
+      "title": "Hamburger à l'air fryer : steak et pain parfaitement grillés",
+      "keyword": "hamburger air fryer",
+      "done": false
+    },
+    {
+      "type": "recette",
+      "title": "Côtes d'agneau à l'air fryer : cuisson parfaite",
+      "keyword": "côtes agneau air fryer",
+      "done": false
+    },
+    {
+      "type": "recette",
+      "title": "Steak haché à l'air fryer : cuisson selon vos goûts",
+      "keyword": "steak haché air fryer",
+      "done": false
+    },
+    {
+      "type": "recette",
+      "title": "Lasagnes à l'air fryer : réchauffer sans dessécher",
+      "keyword": "lasagnes air fryer",
+      "done": false
+    },
+    {
+      "type": "recette",
+      "title": "Gratin dauphinois à l'air fryer : crémeux et gratiné",
+      "keyword": "gratin dauphinois air fryer",
+      "done": false
+    },
+    {
+      "type": "recette",
+      "title": "Pizza maison à l'air fryer : pâte croustillante",
+      "keyword": "pizza air fryer",
+      "done": false
+    },
+    {
+      "type": "recette",
+      "title": "Quiche lorraine à l'air fryer : cuisson parfaite",
+      "keyword": "quiche air fryer",
+      "done": false
+    },
+    {
+      "type": "recette",
+      "title": "Tarte salée à l'air fryer : toutes les astuces",
+      "keyword": "tarte salée air fryer",
+      "done": false
+    },
+    {
+      "type": "recette",
+      "title": "Croque-monsieur à l'air fryer : ultra croustillant",
+      "keyword": "croque monsieur air fryer",
+      "done": false
+    },
+    {
+      "type": "recette",
+      "title": "Wrap croustillant à l'air fryer : recette facile",
+      "keyword": "wrap air fryer",
+      "done": false
+    },
+    {
+      "type": "recette",
+      "title": "Quesadillas à l'air fryer : prêtes en 8 minutes",
+      "keyword": "quesadilla air fryer",
+      "done": false
+    },
+    {
+      "type": "recette",
+      "title": "Pain à l'ail à l'air fryer : prêt en quelques minutes",
+      "keyword": "pain ail air fryer",
+      "done": false
+    },
+    {
+      "type": "recette",
+      "title": "Toast au fromage à l'air fryer : ultra gourmand",
+      "keyword": "toast fromage air fryer",
+      "done": false
+    },
+    {
+      "type": "recette",
+      "title": "Baguette congelée à l'air fryer : comme chez le boulanger",
+      "keyword": "baguette congelée air fryer",
+      "done": false
+    },
+    {
+      "type": "recette",
+      "title": "Pommes de terre au four à l'air fryer : peau croustillante",
+      "keyword": "pommes de terre au four air fryer",
+      "done": false
+    },
+    {
+      "type": "recette",
+      "title": "Pommes noisettes à l'air fryer : cuisson idéale",
+      "keyword": "pommes noisettes air fryer",
+      "done": false
+    },
+    {
+      "type": "recette",
+      "title": "Hash browns à l'air fryer : croustillants à souhait",
+      "keyword": "hash browns air fryer",
+      "done": false
+    },
+    {
+      "type": "recette",
+      "title": "Épis de maïs à l'air fryer : tendres et grillés",
+      "keyword": "maïs air fryer",
+      "done": false
+    },
+    {
+      "type": "recette",
+      "title": "Asperges à l'air fryer : cuisson rapide",
+      "keyword": "asperges air fryer",
+      "done": false
+    },
+    {
+      "type": "recette",
+      "title": "Poivrons grillés à l'air fryer : recette facile",
+      "keyword": "poivrons air fryer",
+      "done": false
+    },
+    {
+      "type": "recette",
+      "title": "Aubergines à l'air fryer : fondantes et dorées",
+      "keyword": "aubergine air fryer",
+      "done": false
+    },
+    {
+      "type": "recette",
+      "title": "Haricots verts à l'air fryer : enfin savoureux",
+      "keyword": "haricots verts air fryer",
+      "done": false
+    },
+    {
+      "type": "recette",
+      "title": "Choux de Bruxelles à l'air fryer : la recette qui réconcilie tout le monde",
+      "keyword": "choux de bruxelles air fryer",
+      "done": false
+    },
+    {
+      "type": "recette",
+      "title": "Carottes rôties à l'air fryer : légèrement caramélisées",
+      "keyword": "carottes air fryer",
+      "done": false
+    },
+    {
+      "type": "recette",
+      "title": "Tomates provençales à l'air fryer",
+      "keyword": "tomates air fryer",
+      "done": false
+    },
+    {
+      "type": "recette",
+      "title": "Calamars à l'air fryer : croustillants sans huile",
+      "keyword": "calamars air fryer",
+      "done": false
+    },
+    {
+      "type": "recette",
+      "title": "Moules gratinées à l'air fryer",
+      "keyword": "moules air fryer",
+      "done": false
+    },
+    {
+      "type": "recette",
+      "title": "Saint-Jacques à l'air fryer : cuisson parfaite",
+      "keyword": "saint jacques air fryer",
+      "done": false
+    },
+    {
+      "type": "recette",
+      "title": "Thon à l'air fryer : cuisson express",
+      "keyword": "thon air fryer",
+      "done": false
+    },
+    {
+      "type": "recette",
+      "title": "Fish and chips à l'air fryer : version légère",
+      "keyword": "fish and chips air fryer",
+      "done": false
+    },
+    {
+      "type": "recette",
+      "title": "Croissants surgelés à l'air fryer : cuisson parfaite",
+      "keyword": "croissant surgelé air fryer",
+      "done": false
+    },
+    {
+      "type": "recette",
+      "title": "Pain au chocolat surgelé à l'air fryer",
+      "keyword": "pain chocolat surgelé air fryer",
+      "done": false
+    },
+    {
+      "type": "recette",
+      "title": "Gaufres surgelées à l'air fryer : croustillantes en quelques minutes",
+      "keyword": "gaufres air fryer",
+      "done": false
+    },
+    {
+      "type": "recette",
+      "title": "Churros à l'air fryer : recette facile",
+      "keyword": "churros air fryer",
+      "done": false
+    },
+    {
+      "type": "recette",
+      "title": "Donuts à l'air fryer : moelleux et gourmands",
+      "keyword": "donuts air fryer",
+      "done": false
+    },
+    {
+      "type": "recette",
+      "title": "Fondant au chocolat à l'air fryer",
+      "keyword": "fondant chocolat air fryer",
+      "done": false
+    },
+    {
+      "type": "recette",
+      "title": "Cheesecake à l'air fryer : la recette facile",
+      "keyword": "cheesecake air fryer",
+      "done": false
+    },
+    {
+      "type": "recette",
+      "title": "Pommes rôties à la cannelle à l'air fryer",
+      "keyword": "pommes rôties air fryer",
+      "done": false
+    },
+    {
+      "type": "recette",
+      "title": "Ananas caramélisé à l'air fryer",
+      "keyword": "ananas air fryer",
       "done": false
     }
   ]

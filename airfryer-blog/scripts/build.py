@@ -32,8 +32,9 @@ OUT = ROOT / "public"
 SITE = CONFIG["site_url"].rstrip("/")
 TAG = CONFIG["amazon_tag"]
 AMAZON = CONFIG["amazon_domain"]
-TYPE_LABEL = {"guide": "Guide", "comparatif": "Comparatif", "article": "Conseils"}
-TYPE_SLUG = {"guide": "guides", "comparatif": "comparatifs", "article": "conseils"}
+TYPE_LABEL = {"guide": "Guide", "comparatif": "Comparatif", "article": "Conseils", "recette": "Recette"}
+TYPE_SLUG = {"guide": "guides", "comparatif": "comparatifs", "article": "conseils", "recette": "recettes"}
+TYPE_EMOJI = {"guide": "🎯", "comparatif": "⚖️", "article": "💡", "recette": "🍽️"}
 
 MD = markdown.Markdown(extensions=["extra", "sane_lists", "smarty"])
 
@@ -73,6 +74,21 @@ def replace_affiliates(md_text: str) -> str:
     md_text = re.sub(r"\{\{box:([^|{}]+)\|([^{}]+)\}\}", box, md_text)
     md_text = re.sub(r"\{\{product:([^{}]+)\}\}", inline, md_text)
     return md_text
+
+
+def replace_illustrations(md_text: str) -> str:
+    """Transforme {{img:EMOJIS|Légende}} en illustration responsive."""
+
+    def figure(m):
+        emojis, caption = m.group(1).strip(), m.group(2).strip()
+        variant = (sum(ord(c) for c in caption) % 4) + 1
+        return (
+            f'\n<figure class="art"><div class="art-canvas art-v{variant}" role="img" '
+            f'aria-label="{esc(caption)}"><span class="art-emoji">{esc(emojis)}</span></div>'
+            f'<figcaption>{esc(caption)}</figcaption></figure>\n'
+        )
+
+    return re.sub(r"\{\{img:([^|{}]+)\|([^{}]+)\}\}", figure, md_text)
 
 
 def parse_frontmatter(raw: str) -> tuple[dict, str]:
@@ -121,10 +137,16 @@ def reading_time(md_text: str) -> int:
 # ------------------------------------------------------------------ gabarits
 
 def adsense_head() -> str:
-    if not CONFIG.get("adsense_enabled"):
+    """Code AdSense officiel, inséré dans le <head> de TOUTES les pages.
+    C'est ce que Google exige pour la validation du site et les Auto Ads.
+    La gestion du consentement RGPD est assurée par le CMP de Google
+    (AdSense → Confidentialité et messages), à activer dans le compte AdSense."""
+    if not CONFIG.get("adsense_enabled") or "XXXX" in CONFIG.get("adsense_client", ""):
         return ""
+    client = esc(CONFIG["adsense_client"])
     return (
-        f'<script src="/consent.js" defer data-adsense-client="{esc(CONFIG["adsense_client"])}"></script>'
+        f'<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'
+        f'?client={client}" crossorigin="anonymous"></script>'
     )
 
 
@@ -138,6 +160,7 @@ def page_shell(title: str, description: str, canonical: str, content: str,
     nav_items = [
         ("/guides/", "Guides"),
         ("/comparatifs/", "Comparatifs"),
+        ("/recettes/", "Recettes"),
         ("/conseils/", "Conseils"),
         ("/a-propos/", "À propos"),
     ]
@@ -216,10 +239,11 @@ def load_articles() -> list[dict]:
             continue
         pub_date, slug = m.group(1), m.group(2)
         meta, body = parse_frontmatter(f.read_text(encoding="utf-8"))
-        body_aff = replace_affiliates(body)
+        body_aff = replace_illustrations(replace_affiliates(body))
         MD.reset()
         articles.append({
             "slug": slug,
+            "emoji": meta.get("emoji", "").strip(),
             "date": pub_date,
             "title": meta.get("title", slug.replace("-", " ").capitalize()),
             "description": meta.get("description", ""),
@@ -286,10 +310,14 @@ def render_article(a: dict, all_articles: list[dict]) -> str:
             ],
         })
 
+    hero_emoji = a.get("emoji") or TYPE_EMOJI.get(a["type"], "🍟")
+    hero_variant = (sum(ord(c) for c in a["slug"]) % 4) + 1
+
     content = f"""<nav class="breadcrumb" aria-label="Fil d'Ariane">
   <a href="/">Accueil</a> › <a href="{cat_url}">{label}</a>
 </nav>
 <article class="post">
+  <div class="post-hero art-v{hero_variant}" aria-hidden="true"><span class="art-emoji">{esc(hero_emoji)}</span></div>
   <header class="post-header">
     <p class="card-badge badge-{a['type']}">{label}</p>
     <h1>{esc(a['title'])}</h1>
@@ -370,9 +398,9 @@ def static_page(title: str, path: str, body_md: str, noindex: bool = False) -> s
 
 
 LEGAL_MENTIONS = """
-**Éditeur du site** : CoreWeb — Contact : coreweb@gmail.com
+**Éditeur du site** : [VOTRE NOM OU RAISON SOCIALE] — [VOTRE ADRESSE] — Contact : [VOTRE EMAIL]
 
-**Directeur de la publication** : Coreweb
+**Directeur de la publication** : [VOTRE NOM]
 
 **Hébergement** : Netlify, Inc. — 512 2nd Street, Suite 200, San Francisco, CA 94107, États-Unis — [netlify.com](https://www.netlify.com)
 
@@ -406,7 +434,7 @@ Si un outil de mesure d'audience est utilisé, il est configuré en mode anonymi
 
 ### Vos droits
 
-Conformément au RGPD, vous disposez d'un droit d'accès, de rectification et d'effacement de vos données. Contact : Coreweb.ent@gmail.com.
+Conformément au RGPD, vous disposez d'un droit d'accès, de rectification et d'effacement de vos données. Contact : [VOTRE EMAIL].
 """
 
 ABOUT = """
@@ -425,7 +453,7 @@ Ce site est gratuit. Il est financé par deux moyens, toujours signalés :
 
 ### Une question, une remarque ?
 
-Écrivez-nous : Coreweb.ent@gmail.com. Nous lisons tout.
+Écrivez-nous : [VOTRE EMAIL]. Nous lisons tout.
 """
 
 
@@ -458,8 +486,11 @@ def main():
         ("comparatif", "Comparatifs d'air fryers",
          "Nos comparatifs détaillés des meilleurs air fryers du marché.",
          "Modèle par modèle, marque par marque : nos verdicts clairs pour chaque profil et chaque budget."),
-        ("article", "Conseils & recettes à l'air fryer",
-         "Recettes, temps de cuisson, astuces et entretien : nos conseils pratiques air fryer.",
+        ("recette", "Recettes à l'air fryer",
+         "Nos recettes à l'air fryer pas à pas : temps, températures et astuces pour tout réussir.",
+         "Viandes, poissons, légumes, desserts : des recettes détaillées avec temps et températures précis, testées pour la friteuse à air chaud."),
+        ("article", "Conseils & astuces air fryer",
+         "Temps de cuisson, astuces et entretien : nos conseils pratiques air fryer.",
          "Des articles pratiques et actionnables pour tirer le meilleur de votre friteuse à air chaud au quotidien."),
     ]
     for t, title, desc, intro in cats:

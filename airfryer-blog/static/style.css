@@ -155,3 +155,36 @@ a:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; border-ra
   .header-inner { justify-content: center; text-align: center; }
   .hero { padding: 2rem 0 1.75rem; }
 }
+
+/* ---------- V2 : rubrique Recettes ---------- */
+.badge-recette { background: #fbe9e0; color: #a13c10; }
+
+/* ---------- V2 : illustrations ---------- */
+.post-hero {
+  border-radius: 12px; margin: 1.5rem 0 0;
+  display: flex; align-items: center; justify-content: center;
+  min-height: 130px; padding: 1rem;
+}
+.art { margin: 1.75rem 0; }
+.art-canvas {
+  border-radius: 12px; display: flex; align-items: center; justify-content: center;
+  min-height: 110px; padding: 1.25rem;
+}
+.art-emoji {
+  font-size: clamp(2.6rem, 8vw, 4rem); line-height: 1;
+  letter-spacing: .15em; text-shadow: 0 4px 14px rgba(0,0,0,.18);
+}
+.post-hero .art-emoji { font-size: clamp(3rem, 9vw, 4.6rem); }
+.art figcaption {
+  text-align: center; font-size: .85rem; color: var(--smoke);
+  margin-top: .5rem; font-style: italic;
+}
+.art-v1 { background: linear-gradient(135deg, #fff3dc, #f7c56d 60%, #e8983a); }
+.art-v2 { background: linear-gradient(135deg, #fdeee2, #f3b28a 60%, #d97742); }
+.art-v3 { background: linear-gradient(135deg, #f2f5e6, #cfd9a3 60%, #a3b46a); }
+.art-v4 { background: linear-gradient(135deg, #fdf0ee, #f0b8ad 55%, #cd7a63); }
+
+@media (max-width: 640px) {
+  .post-hero { min-height: 100px; }
+  .art-canvas { min-height: 90px; }
+}
