@@ -134,6 +134,33 @@ def reading_time(md_text: str) -> int:
     return max(1, round(len(re.findall(r"\w+", md_text)) / 220))
 
 
+def slug_anchor(text: str) -> str:
+    import unicodedata
+    t = unicodedata.normalize("NFKD", text).encode("ascii", "ignore").decode("ascii")
+    return re.sub(r"[^a-zA-Z0-9]+", "-", t.lower()).strip("-")[:60] or "section"
+
+
+def add_heading_anchors(html_text: str) -> tuple[str, list[tuple[str, str]]]:
+    """Ajoute un id à chaque H2 et retourne la liste (id, titre) pour le sommaire."""
+    toc: list[tuple[str, str]] = []
+    used: set[str] = set()
+
+    def repl(m):
+        inner = m.group(1)
+        text = re.sub(r"<[^>]+>", "", inner).strip()
+        anchor = slug_anchor(text)
+        i = 2
+        while anchor in used:
+            anchor = f"{slug_anchor(text)}-{i}"
+            i += 1
+        used.add(anchor)
+        toc.append((anchor, text))
+        return f'<h2 id="{anchor}">{inner}</h2>'
+
+    html_text = re.sub(r"<h2>(.*?)</h2>", repl, html_text, flags=re.S)
+    return html_text, toc
+
+
 # ------------------------------------------------------------------ gabarits
 
 def adsense_head() -> str:
@@ -191,18 +218,24 @@ def page_shell(title: str, description: str, canonical: str, content: str,
 {scripts}
 </head>
 <body>
+<div id="progress" aria-hidden="true"></div>
 <header class="site-header">
   <div class="wrap header-inner">
     <a class="logo" href="/" aria-label="{esc(CONFIG['site_name'])} — accueil">
       <svg class="logo-mark" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 15c2.5-1.5 4-4.5 3-7 3 .5 5 3 5 6 1.5-1 2.5-2.8 2.5-5C17.5 11 20 13 20 16a8 8 0 0 1-16 0v-1z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
       <span>{esc(CONFIG['site_name'])}<em>°</em></span>
     </a>
-    <nav class="site-nav" aria-label="Navigation principale">{nav}</nav>
+    <nav class="site-nav" aria-label="Navigation principale">{nav}
+      <button id="search-btn" class="search-btn" aria-label="Rechercher sur le site" title="Rechercher (Ctrl+K)">
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="m16.5 16.5 4.5 4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+    </nav>
   </div>
 </header>
 <main class="wrap">
 {content}
 </main>
+<script src="/app.js" defer></script>
 <footer class="site-footer">
   <div class="wrap">
     <p class="footer-disclosure">En tant que Partenaire Amazon, {esc(CONFIG['site_name'])} réalise un bénéfice sur les achats remplissant les conditions requises. Les liens produits de ce site sont des liens affiliés.</p>
@@ -210,6 +243,7 @@ def page_shell(title: str, description: str, canonical: str, content: str,
       <a href="/a-propos/">À propos</a>
       <a href="/mentions-legales/">Mentions légales</a>
       <a href="/confidentialite/">Politique de confidentialité</a>
+      <a href="/rss.xml">Flux RSS</a>
     </nav>
     <p class="footer-copy">© {year} {esc(CONFIG['site_name'])} — {esc(CONFIG['site_tagline'])}</p>
   </div>
@@ -240,6 +274,7 @@ def load_articles() -> list[dict]:
         meta, body = parse_frontmatter(f.read_text(encoding="utf-8"))
         body_aff = replace_illustrations(replace_affiliates(body))
         MD.reset()
+        html_body, toc = add_heading_anchors(MD.convert(body_aff))
         articles.append({
             "slug": slug,
             "emoji": meta.get("emoji", "").strip(),
@@ -250,7 +285,8 @@ def load_articles() -> list[dict]:
             "type": meta.get("type", "article"),
             "faq": extract_faq(body),
             "minutes": reading_time(body),
-            "html": MD.convert(body_aff),
+            "html": html_body,
+            "toc": toc,
             "url": f"/{slug}/",
         })
     return articles
@@ -312,6 +348,14 @@ def render_article(a: dict, all_articles: list[dict]) -> str:
     hero_emoji = a.get("emoji") or TYPE_EMOJI.get(a["type"], "🍟")
     hero_variant = (sum(ord(c) for c in a["slug"]) % 4) + 1
 
+    toc_html = ""
+    if len(a["toc"]) >= 3:
+        items = "".join(f'<li><a href="#{i}">{esc(t)}</a></li>' for i, t in a["toc"])
+        toc_html = (
+            '<details class="toc" open><summary>Sommaire</summary>'
+            f'<ol>{items}</ol></details>'
+        )
+
     content = f"""<nav class="breadcrumb" aria-label="Fil d'Ariane">
   <a href="/">Accueil</a> › <a href="{cat_url}">{label}</a>
 </nav>
@@ -323,6 +367,7 @@ def render_article(a: dict, all_articles: list[dict]) -> str:
     <p class="post-meta">Publié le <time datetime="{a['date']}">{d.strftime('%d/%m/%Y')}</time> · {a['minutes']} min de lecture · Par {esc(CONFIG['author'])}</p>
   </header>
   <p class="disclosure">Cet article contient des liens affiliés Amazon : si vous achetez via ces liens, nous touchons une commission, sans surcoût pour vous. C'est ce qui finance nos tests et guides. <a href="/a-propos/">En savoir plus</a>.</p>
+  {toc_html}
   <div class="post-body">
 {a['html']}
   </div>
@@ -547,6 +592,20 @@ def main():
         f"<description>{esc(CONFIG['site_description'])}</description>"
         f"<language>fr-FR</language>{items}</channel></rss>",
         encoding="utf-8")
+
+    # Index de recherche interne
+    search_index = [
+        {
+            "t": a["title"],
+            "d": a["description"],
+            "k": a["keywords"],
+            "u": a["url"],
+            "c": TYPE_LABEL[a["type"]],
+        }
+        for a in articles
+    ]
+    (OUT / "search-index.json").write_text(
+        json.dumps(search_index, ensure_ascii=False), encoding="utf-8")
 
     # ads.txt (requis par AdSense)
     if CONFIG.get("adsense_enabled") and "XXXX" not in CONFIG.get("adsense_client", ""):
