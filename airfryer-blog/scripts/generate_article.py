@@ -68,16 +68,16 @@ def next_topic(topics: dict) -> dict | None:
 def build_prompt(topic: dict) -> str:
     type_details = {
         "guide": (
-            "un GUIDE COMPLET et pédagogique. Structure : introduction accrocheuse, "
-            "puis 6 à 9 sections H2 qui couvrent le sujet en profondeur (critères, "
+            "un GUIDE pédagogique et concis. Structure : introduction accrocheuse, "
+            "puis 4 à 6 sections H2 qui couvrent l'essentiel du sujet (critères, "
             "explications techniques vulgarisées, cas d'usage, erreurs à éviter), "
             "avec des recommandations de produits précis là où c'est pertinent."
         ),
         "comparatif": (
             "un COMPARATIF détaillé. Structure : introduction, tableau comparatif "
             "markdown des modèles (colonnes : Modèle, Capacité, Puissance, Points forts, "
-            "Pour qui ?), puis une section H2 par produit (5 à 7 produits réels et "
-            "actuels) avec avis détaillé, points forts, points faibles, et un bloc "
+            "Pour qui ?), puis une section H2 par produit (3 à 5 produits réels et "
+            "actuels) avec avis concis, points forts, points faibles, et un bloc "
             "{{box:...}} par produit. Terminer par un verdict clair par profil "
             "d'utilisateur (meilleur rapport qualité/prix, meilleur haut de gamme, etc.)."
         ),
@@ -104,14 +104,14 @@ RÉDIGE {type_details[topic['type']]}
 
 SUJET : {topic['title']}
 MOT-CLÉ PRINCIPAL : {topic['keyword']}
-LONGUEUR CIBLE : environ {CONFIG['target_word_count']} mots (c'est important, développe réellement chaque section).
+LONGUEUR IMPÉRATIVE : entre 400 et 1000 mots, JAMAIS plus de 1000 mots. Vise environ {min(int(CONFIG.get('target_word_count', 800)), 900)} mots. Va droit au but : pas de remplissage, pas de répétitions, chaque phrase doit apporter une information. Mieux vaut un article de 600 mots dense qu'un article de 1000 mots dilué.
 
 RÈGLES SEO IMPÉRATIVES :
 - Le mot-clé principal apparaît dans le titre, dans les 100 premiers mots, dans au moins 2 sous-titres H2, et naturellement dans le texte (sans bourrage).
 - Utilise des variantes sémantiques (friteuse sans huile, friteuse à air, cuisson à air chaud...).
 - Sous-titres H2 (##) et H3 (###) descriptifs qui répondent à de vraies questions.
 - Paragraphes courts (3-5 phrases), listes à puces quand c'est pertinent, un tableau markdown si utile.
-- Termine par une section « ## FAQ » avec 4 à 6 questions en H3 (###) suivies chacune d'une réponse de 2-4 phrases. Ces questions doivent correspondre à de vraies recherches Google.
+- Termine par une section « ## FAQ » avec 3 ou 4 questions en H3 (###) suivies chacune d'une réponse de 2-4 phrases. Ces questions doivent correspondre à de vraies recherches Google.
 - Après la FAQ, une courte conclusion « ## Le mot de la fin » avec un appel à l'action doux.
 - Ton : expert mais accessible, chaleureux, français naturel. Tutoiement interdit, vouvoie le lecteur.
 - N'invente JAMAIS de prix précis ni de notes chiffrées de tests que tu n'as pas réalisés. Reste sur les caractéristiques connues des produits.
@@ -119,11 +119,11 @@ RÈGLES SEO IMPÉRATIVES :
 LIENS AFFILIÉS (très important) :
 - Quand tu mentionnes un produit précis achetable (ex. Ninja Foodi MAX Dual Zone AF400EU, Philips Airfryer 5000 XXL, Cosori Turbo Blaze, Moulinex Easy Fry...), écris-le sous la forme : {{{{product:Nom exact du produit}}}}
 - Pour mettre en avant un produit recommandé, insère sur une ligne seule un bloc : {{{{box:Nom exact du produit|Une phrase d'accroche qui résume pourquoi on le recommande}}}}
-- Utilise entre 4 et 10 marqueurs {{{{product:...}}}} par article, placés naturellement, et 1 à 5 blocs {{{{box:...}}}} selon le type d'article.
+- Utilise entre 2 et 5 marqueurs {{{{product:...}}}} par article, placés naturellement, et 1 à 2 blocs {{{{box:...}}}} selon le type d'article.
 - Ne mets JAMAIS d'URL Amazon toi-même : uniquement ces marqueurs.
 
 ILLUSTRATIONS :
-- Insère 2 à 3 marqueurs d'illustration dans l'article, chacun sur une ligne seule, entre deux sections : {{{{img:2 ou 3 émojis représentant le contenu|Une légende courte et concrète}}}}
+- Insère 1 à 2 marqueurs d'illustration dans l'article, chacun sur une ligne seule, entre deux sections : {{{{img:2 ou 3 émojis représentant le contenu|Une légende courte et concrète}}}}
 - Exemple : {{{{img:🍗🔥|Le poulet ressort doré et croustillant après 25 minutes à 180 °C}}}}
 - Choisis des émojis directement liés au sujet (aliments, ustensiles, feu, minuteur...). Jamais dans un titre ni dans un paragraphe : toujours sur une ligne seule.
 
@@ -197,7 +197,7 @@ def main() -> int:
 
     words = len(re.findall(r"\w+", article))
     print(f"Article généré : {words} mots.")
-    if words < 900:
+    if words < 300:
         print("ERREUR : article anormalement court, abandon (le sujet reste dans la file).", file=sys.stderr)
         return 1
 
