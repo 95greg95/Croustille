@@ -4,13 +4,14 @@
       "type": "guide",
       "title": "Air fryer XXL : le guide complet pour les familles nombreuses",
       "keyword": "air fryer xxl famille",
-      "done": false
+      "done": true
     },
     {
       "type": "comparatif",
       "title": "Ninja vs Philips : quel air fryer choisir en 2026 ?",
       "keyword": "ninja vs philips air fryer",
-      "done": false
+      "done": true,
+      "published": "2026-07-17"
     },
     {
       "type": "article",
