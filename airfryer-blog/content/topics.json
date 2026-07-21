@@ -38,7 +38,8 @@
       "type": "article",
       "title": "Poulet rôti entier à l'air fryer : temps de cuisson et astuces de chef",
       "keyword": "poulet air fryer",
-      "done": false
+      "done": true,
+      "published": "2026-07-21"
     },
     {
       "type": "guide",
