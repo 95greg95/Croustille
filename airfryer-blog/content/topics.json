@@ -52,7 +52,8 @@
       "type": "comparatif",
       "title": "Air fryer ou four traditionnel : le match complet (consommation, goût, praticité)",
       "keyword": "air fryer ou four",
-      "done": false
+      "done": true,
+      "published": "2026-07-23"
     },
     {
       "type": "article",
