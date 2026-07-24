@@ -59,7 +59,8 @@
       "type": "article",
       "title": "Légumes rôtis à l'air fryer : 12 recettes et temps de cuisson précis",
       "keyword": "légumes air fryer",
-      "done": false
+      "done": true,
+      "published": "2026-07-24"
     },
     {
       "type": "guide",
