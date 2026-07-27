@@ -80,7 +80,8 @@
       "type": "article",
       "title": "Tableau des temps de cuisson à l'air fryer : le mémo complet à imprimer",
       "keyword": "temps de cuisson air fryer",
-      "done": false
+      "done": true,
+      "published": "2026-07-27"
     },
     {
       "type": "guide",
