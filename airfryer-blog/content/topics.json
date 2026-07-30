@@ -101,7 +101,8 @@
       "type": "article",
       "title": "Poisson à l'air fryer : saumon, cabillaud, panure... le guide complet",
       "keyword": "poisson air fryer",
-      "done": false
+      "done": true,
+      "published": "2026-07-30"
     },
     {
       "type": "guide",
