@@ -122,7 +122,8 @@
       "type": "article",
       "title": "Desserts à l'air fryer : cookies, moelleux, beignets... 10 recettes bluffantes",
       "keyword": "dessert air fryer",
-      "done": false
+      "done": true,
+      "published": "2026-08-02"
     },
     {
       "type": "guide",
