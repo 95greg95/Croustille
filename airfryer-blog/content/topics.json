@@ -143,7 +143,8 @@
       "type": "article",
       "title": "Réchauffer une pizza à l'air fryer : la méthode qui change tout",
       "keyword": "réchauffer pizza air fryer",
-      "done": false
+      "done": true,
+      "published": "2026-08-05"
     },
     {
       "type": "guide",
