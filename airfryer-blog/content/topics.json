@@ -164,7 +164,8 @@
       "type": "article",
       "title": "Air fryer : 20 aliments à ne jamais y mettre (et pourquoi)",
       "keyword": "aliments interdits air fryer",
-      "done": false
+      "done": true,
+      "published": "2026-08-08"
     },
     {
       "type": "guide",
